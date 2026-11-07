@@ -40,6 +40,14 @@ if [[ -z "$CALAMARES_PKG" ]] || ! bsdtar -tvf "$CALAMARES_PKG" | awk '$NF ~ /lib
 fi
 repo-add "$PKG_DIR/surfaceos.db.tar.gz" "$PKG_DIR"/calamares-[0-9]*.pkg.tar.zst
 
-rm -rf "$OUT_DIR/work"
+# mkarchiso mounts proc/sys/dev and package-manager filesystems inside the
+# work tree.  Unmount those exact nested mounts before removing the tree;
+# rm -rf alone can recurse into the host's virtual filesystems.
+if [[ -d "$OUT_DIR/work" ]]; then
+  while IFS= read -r mountpoint; do
+    umount --lazy "$mountpoint" 2>/dev/null || true
+  done < <(findmnt --recursive --noheadings --output TARGET "$OUT_DIR/work" 2>/dev/null | sort --reverse)
+  rm -rf -- "$OUT_DIR/work"
+fi
 rm -f "$OUT_DIR/surfaceos-"*.iso "$OUT_DIR/surfaceos-"*.iso.*
 mkarchiso -v -w "$OUT_DIR/work" -o "$OUT_DIR" "$PROFILE_DIR"
