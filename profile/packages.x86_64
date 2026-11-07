@@ -1,10 +1,12 @@
 base
+archiso
 iptables
 jack2
 noto-fonts-emoji
 qt6-multimedia-ffmpeg
 linux
 linux-firmware
+linux-firmware-marvell
 intel-ucode
 mkinitcpio
 networkmanager
