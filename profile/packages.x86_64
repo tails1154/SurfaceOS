@@ -1,7 +1,10 @@
 base
 archiso
 mkinitcpio-archiso
+mkinitcpio-nfs-utils
 syslinux
+nbd
+nfs-utils
 iptables
 jack2
 noto-fonts-emoji
