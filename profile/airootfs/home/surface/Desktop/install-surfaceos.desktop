@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Install SurfaceOS
+Comment=Install SurfaceOS to this computer
+Exec=/usr/local/bin/surface-installer
+Icon=system-software-install
+Terminal=false
+Categories=System;
