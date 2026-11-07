@@ -27,17 +27,7 @@ The output is written to `out/`. Write it to a USB drive only after checking the
 sudo dd if=out/SurfaceOS-0.1.0-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
 ```
 
-The live image boots into the regular SurfaceOS desktop. To install to disk, open **Surface Installer** from the launcher. It runs `archinstall` with the checked-in profile and asks for the disk, username, and password interactively.
-
-## Install directly with archinstall
-
-If you already booted an Arch ISO, this is the same configuration used by the SurfaceOS installer:
-
-```sh
-sudo archinstall --config ./installer/user_configuration.json --creds ./installer/user_credentials.json
-```
-
-Do not use the sample credentials file on a real install. The installer copies the profile, prompts for credentials, and only then starts `archinstall`.
+The live image boots into the SurfaceOS desktop with **Surface Installer** in the application launcher. It opens Calamares, which partitions the chosen drive, copies the live root filesystem, configures the installed system, and installs GRUB for UEFI boot.
 
 ## Design choices
 

@@ -1,0 +1,10 @@
+[Unit]
+Description=Prepare SurfaceOS live session
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/surfaceos-live-setup
+
+[Install]
+WantedBy=multi-user.target

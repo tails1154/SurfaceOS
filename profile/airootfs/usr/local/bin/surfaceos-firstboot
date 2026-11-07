@@ -7,11 +7,10 @@ systemctl enable power-profiles-daemon.service
 systemctl enable iio-sensor-proxy.service
 systemctl enable tlp.service || true
 systemctl enable sddm.service
+systemctl enable surfaceos-live-setup.service
 
 if id liveuser >/dev/null 2>&1; then
   install -d -m 0700 -o liveuser -g liveuser /home/liveuser/.config
   install -d -m 0700 -o liveuser -g liveuser /home/liveuser/Desktop
   install -d -m 0700 -o liveuser -g liveuser /home/liveuser/.local/share/applications
-  install -m 0755 /usr/local/bin/surface-installer /home/liveuser/Desktop/Surface\ Installer.desktop
-  chown liveuser:liveuser /home/liveuser/Desktop/Surface\ Installer.desktop
 fi

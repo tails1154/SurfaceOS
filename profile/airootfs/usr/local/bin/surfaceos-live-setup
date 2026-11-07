@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+useradd -m -G wheel,audio,video,storage,network -s /bin/bash liveuser 2>/dev/null || true
+passwd -d liveuser
+install -d -o liveuser -g liveuser /home/liveuser/Desktop
+install -o liveuser -g liveuser /usr/share/applications/surface-installer.desktop /home/liveuser/Desktop/

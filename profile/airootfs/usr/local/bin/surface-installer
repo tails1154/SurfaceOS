@@ -1,27 +1,2 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
-if [[ "${EUID}" -ne 0 ]]; then
-  exec sudo "$0" "$@"
-fi
-
-PROFILE="/usr/share/surfaceos/installer/user_configuration.json"
-CREDS="/tmp/surfaceos-credentials.json"
-
-if ! command -v archinstall >/dev/null; then
-  notify-send "Surface Installer" "archinstall is not available in this image." || true
-  exit 1
-fi
-
-username="$(kdialog --inputbox 'Choose your account name' 'surface')" || exit 1
-password="$(kdialog --password 'Choose your account password')" || exit 1
-confirm="$(kdialog --password 'Confirm your account password')" || exit 1
-[[ -n "$username" && "$password" == "$confirm" ]] || { kdialog --error 'Username is required and passwords must match.'; exit 1; }
-python - "$CREDS" "$username" "$password" <<'PY'
-import json, sys
-with open(sys.argv[1], "w", encoding="utf-8") as handle:
-    json.dump({"!users": [{"username": sys.argv[2], "!password": sys.argv[3], "sudo": True}]}, handle)
-PY
-chmod 600 "$CREDS"
-archinstall --config "$PROFILE" --creds "$CREDS"
-rm -f "$CREDS"
+exec pkexec calamares "$@"

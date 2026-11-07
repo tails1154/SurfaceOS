@@ -31,7 +31,16 @@ thermald
 iio-sensor-proxy
 upower
 fwupd
-archinstall
+calamares
+grub
+efibootmgr
+dosfstools
+e2fsprogs
+f2fs-tools
+btrfs-progs
+kdialog
+python
+polkit-kde-agent
 konsole
 dolphin
 firefox
