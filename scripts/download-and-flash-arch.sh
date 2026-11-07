@@ -8,10 +8,10 @@ if [[ ${EUID} -ne 0 ]]; then exec sudo -E "$0" "$@"; fi
 command -v dialog >/dev/null || { echo "dialog is required." >&2; exit 1; }
 export DIALOGRC=/dev/null
 die() { dialog --title 'Arch USB writer' --msgbox "$1" 8 70; clear; exit 1; }
-mapfile -t disks < <(lsblk -dpno NAME,MODEL,SIZE,TRAN,TYPE | awk '$4 == "usb" && $5 == "disk" {print}')
+mapfile -t disks < <(lsblk -dpno NAME,TRAN,TYPE | awk '$2 == "usb" && $3 == "disk" {print $1}')
 ((${#disks[@]})) || die 'No USB disk was detected.'
 menu_args=()
-for line in "${disks[@]}"; do name=${line%% *}; label=${line#* }; menu_args+=("$name" "$label"); done
+for name in "${disks[@]}"; do label=$(lsblk -dn -o MODEL,SIZE "$name"); menu_args+=("$name" "$label"); done
 target=$(dialog --stdout --title 'Select USB installer disk' --menu 'Choose the USB disk to erase:' 15 90 6 "${menu_args[@]}") || exit 1
 target=$(readlink -f -- "$target")
 

@@ -11,11 +11,11 @@ export DIALOGRC=/dev/null
 die() { dialog --title 'SurfaceOS installer' --msgbox "$1" 8 70; clear; exit 1; }
 cancelled() { dialog --title 'SurfaceOS installer' --msgbox 'Installation cancelled.' 7 50; clear; exit 1; }
 
-mapfile -t disks < <(lsblk -dpno NAME,MODEL,SIZE,TRAN,TYPE | awk '$4 != "usb" && $5 == "disk" {print}')
+mapfile -t disks < <(lsblk -dpno NAME,TRAN,TYPE | awk '$2 != "usb" && $3 == "disk" {print $1}')
 (( ${#disks[@]} )) || die 'No internal disk was detected.'
 menu_args=()
-for line in "${disks[@]}"; do
-  name=${line%% *}; label=${line#* }
+for name in "${disks[@]}"; do
+  label=$(lsblk -dn -o MODEL,SIZE "$name")
   menu_args+=("$name" "$label")
 done
 target=$(dialog --stdout --title 'Select internal disk' --menu \
