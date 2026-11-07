@@ -1,6 +1,7 @@
 base
 archiso
 mkinitcpio-archiso
+syslinux
 iptables
 jack2
 noto-fonts-emoji
