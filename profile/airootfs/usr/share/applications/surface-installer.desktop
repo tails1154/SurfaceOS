@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Surface Installer
+Comment=Install SurfaceOS with archinstall
+Exec=pkexec /usr/local/bin/surface-installer
+Icon=system-software-install
+Terminal=true
+Categories=System;
