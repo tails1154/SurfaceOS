@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=Surface Installer
-Comment=Install SurfaceOS
-Exec=pkexec calamares
+Name=Install SurfaceOS
+Comment=Install SurfaceOS to this computer
+Exec=/usr/local/bin/surface-installer
 Icon=system-software-install
 Terminal=false
 Categories=System;
